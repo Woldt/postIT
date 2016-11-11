@@ -30,8 +30,10 @@ mongoose.connect(config.database, function(err, db){
   if(err){ // if a error occured when trying to connect
     console.log("Something went wrong when trying to connect to the mongoDB server. Error: " + err);
   }
-  // Connected!!!
-  console.log('Successfully connected to: ' + config.database);
+  else {
+    // Connected!!!
+    console.log('Successfully connected to: ' + config.database);
+  }
 });
 
 // Start the server, and listen to the spesified port.
