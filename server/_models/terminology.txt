@@ -1,0 +1,32 @@
+MongoDB terminology:
+
+Database: is a physical container for collections.
+          Each dtabase gets its own set of files on the file system.
+          A single Mongo DB server typically has multiple databases
+
+Collections (table): is a groupe of MongoDB documents.
+                    A collection exists within a single database.
+                    Colletion do not enforce a schema. Documents within a
+                    collection can have different fields.
+                    TYPICALLY; all documents in a collection are of similar or related purpose.
+
+Document (tuple): A document is a set of key-value pairs.
+                              Documents have dynamic schema.
+
+                              Dynamic schema means that documents in the same collection
+                              do not need to have the same set of fields or structure,
+                              and common fields in a collection's documents may hold different types of data.
+
+
+
+MongoDB               VS       RDBMS (e.x. MySQL):
+Database              |       Database
+Collection            |       Table
+Document              |       Tuple / row
+Field                 |       Column
+Embedded Documents    |       Table Join
+Primary Key           |       Primary key
+
+
+# IN MongoDB
+Primary Key  --> Default key _id provided by mongodb itself.
