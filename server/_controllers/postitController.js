@@ -64,3 +64,24 @@ exports.newPostit = function(req, res, next) {
     return res.status(200).send(newPostit + "\nSuccessfully saved");
   });
 };
+
+
+exports.getAll = function(req, res, next) {
+  /* To call this method, and get all postits from database, no query is needed.
+  Therefor there is no need to send information as parameter or in body. */
+
+  // Try and get all documents from database collection:
+  let query = "";
+  PostIT.find(query, function(err, documents) {
+    if(err) {
+      return res.status(422).send({ error: "Something went wrong trying to get all documents:" + err})
+    }
+    // If finding all went smuud, send them back to the client
+    // returns a list of JSON objects!!!
+    return res.status(200).send(documents);
+
+  });
+
+
+
+}
