@@ -11,18 +11,25 @@ var logger = require('morgan') // server request logger
 // Create a express server
 var app = express();
 
+
+/*
+Define all  server and route configuraiton BEFORE defining routes!
+*/
+
 // makes the server print to terminal all requests.
 app.use(logger('dev'));
 
 //make the server use port spesified in _config/main.js
 app.set('port',config.port);
 
-// Set the server to listen to all the different routes declared in router.js
-app.use('/', router);
-
 // Make the server able to listen extract content from POST body, and parse JSON
 app.use(bodyParser.urlencoded({ extended: false })); // extended choose between parsing the URL-encoded data with the "querystring" library(false) or the "qs" library(true)
 app.use(bodyParser.json()); // returns middleware that only parsers json
+
+
+// Set the server to listen to all the different routes declared in router.js
+app.use('/', router);
+
 
 // configure the database MongoDB
 // try and connect to the MongodDB spesified in the config file
