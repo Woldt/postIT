@@ -4,30 +4,11 @@ const PostIT = require("../_models/postit"); //import the exported Model
 
 /*
 Now whenever we want to do something with the PostIT-schema in the database
-we have to use / refrence the exported name in postit. such as
-
-PostIT.findOne(...);
+we have to send a request to the spesified path in rouer.js
+example, to get all postit from database we have to query
+http://localhost:8080/api/postit/all 
 */
 
-/*
-exports.searchByTitel = function(req, res, next){
-  const reqTitel = JSON.parse(req.body.titel);
-
-  // Search in database --> PostIT Model for a instance matching reqTitel
-  PostIT.findOne(reqTitel, function(err, existingPostIT){
-    if (err){
-      return next(err);
-    }
-    if (existingPostIT) {
-      return res.status(200).send(existingPostIT);
-    }
-    else {
-      return res.status(422).send({ error: 'No such PostIT saved'});
-    }
-  });
-};
-
-*/
 
 // This function gets called when a request is sendt as GET to /api/postit/search
 // with a parameter title
