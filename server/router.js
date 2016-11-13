@@ -42,6 +42,7 @@ information to the request body as key-value pairs.
 // www.localhost:8080/api/test
 apiRoutes.get('/test', testController.firstGet);
 apiRoutes.get('/postit/search/:titel', postitController.searchByTitel);
+apiRoutes.post('/postit/new', postitController.newPostit);
 
 
 
