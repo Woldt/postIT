@@ -43,6 +43,7 @@ information to the request body as key-value pairs.
 apiRoutes.get('/test', testController.firstGet);
 apiRoutes.get('/postit/search/:titel', postitController.searchByTitel);
 apiRoutes.post('/postit/new', postitController.newPostit);
+apiRoutes.get('/postit/all', postitController.getAll);
 
 
 
