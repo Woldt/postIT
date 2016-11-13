@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
 
 const PostitSchema = new Schema({
   // Dont have to write "id" because MongoDB inserts this by itself as "_id"
-  titel: String,
+  title: String,
   category: Array,
   description: String
 });
