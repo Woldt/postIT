@@ -29,13 +29,26 @@ exports.searchByTitel = function(req, res, next){
 
 */
 
-// This function gets called when a request is sendt as POST to /api/postit
+// This function gets called when a request is sendt as GET to /api/postit/search
+// with a parameter title
 exports.searchByTitel = function(req, res, next) {
-  var reqParam = req.params; // Access post-body key-value pairs
-  console.log(reqParam);
-  console.log("tjohei");
-  res.status(200).send(reqParam);
+  let title = req.params.title; // extract :title from URL
 
+  // Try and findOne in the database that matches the parameter title
+  PostIT.findOne({title: title}, function(err, doc){
+    if(err){
+      return res.status(422).send({error: "Something went wrong, Error: " + err});
+    }
+    // If nothing went wrong, check if found.
+    console.log("doc : " + doc);
+    if(doc == null){ // No documents matching found
+      return res.status(200). send({message: "Could not find a postit with that title. Did you spell it right?"});
+    }
+
+    // If a postit matched and can be returned
+    return res.status(200).send(doc);
+
+  });
 };
 
 exports.newPostit = function(req, res, next) {
@@ -50,7 +63,7 @@ exports.newPostit = function(req, res, next) {
 
   // If validation is passed, create a new postit:
   var postit = new PostIT({
-    titel: newPostit.title,
+    title: newPostit.title,
     category: newPostit.category.split(","), //create a list of the category keywords, split category on ','
     description: newPostit.description
   })
@@ -81,7 +94,4 @@ exports.getAll = function(req, res, next) {
     return res.status(200).send(documents);
 
   });
-
-
-
-}
+};
