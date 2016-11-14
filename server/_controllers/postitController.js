@@ -12,6 +12,14 @@ http://localhost:8080/api/postit/all
 
 // This function gets called when a request is sendt as GET to /api/postit/search
 // with a parameter title
+
+/**
+This function is used to find a document by its title, and then returns the
+given document in JSON format.
+
+GET-method
+:title: is in the request URL as parameter
+*/
 exports.searchByTitel = function(req, res, next) {
   let title = req.params.title; // extract :title from URL
 
@@ -32,6 +40,17 @@ exports.searchByTitel = function(req, res, next) {
   });
 };
 
+/**
+This function creates a new document and saves it to the collection.
+Has minor validation
+
+Returns the new document as JSON allong with a "Successfully saved"
+
+POST-method
+:title: is sent in the request body
+:category: is sent in the request body
+:description: is sent in the request body
+*/
 exports.newPostit = function(req, res, next) {
   var newPostit = req.body; // extract from the request body the key-value pairs
 
@@ -59,7 +78,13 @@ exports.newPostit = function(req, res, next) {
   });
 };
 
+/**
+This functions queries the database and returns all the documents in the collection
+as JSON format
 
+GET-method
+:params: No parameters
+*/
 exports.getAll = function(req, res, next) {
   /* To call this method, and get all postits from database, no query is needed.
   Therefor there is no need to send information as parameter or in body. */
@@ -76,7 +101,14 @@ exports.getAll = function(req, res, next) {
 
   });
 };
+/**
+This function removes a document from the collection based on the id given
+as a parameter, and returns message "Successfully deleted" along with the
+status code "200"
 
+DELETE-method
+:id: in the request URL
+*/
 exports.deleteById = function(req, res, next ){
   // DELETE method, but query is sendt in URL so therefor we have to use req.params
   let id = req.params.id; // Extract the id from the request
@@ -98,10 +130,21 @@ exports.deleteById = function(req, res, next ){
     }
     // If removal was success
     console.log("Doc: " + doc) // RB4P
-    return res.status(200).send(doc);
+    return res.status(200).send({message: "Successfully deleted"});
   })
 };
 
+/**
+This is a function to handle the updating of a document in the collection.
+First the function finds the given document by its ID, then updates the
+document and then saves it back to the collection updated.
+
+PUT-method:
+:id: is found in the url
+:title: is in the request body
+:category: is in the request body
+:description: is in the request body
+*/
 exports.updateById = function(req, res, next){
   let id = req.params.id;
 
@@ -125,15 +168,11 @@ exports.updateById = function(req, res, next){
     doc.category = category;
     doc.description = description;
 
-    console.log("updated DOC: " + doc);
+    console.log("updated DOC: " + doc); // RB4P
     // save / update the doc
     doc.save();
 
     // Send response to client
     return res.status(200).send(doc + "\nSuccessfully updateById");
-
-
-  })
-
-
+  });
 };
