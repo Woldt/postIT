@@ -40,13 +40,20 @@ information to the request body as key-value pairs.
 | ----------------------------------------------------
 */
 // www.localhost:8080/api/test
+
+//GET METHODS
 apiRoutes.get('/test', testController.firstGet);
 apiRoutes.get('/postit/search/:title', postitController.searchByTitel);
-apiRoutes.post('/postit/new', postitController.newPostit);
 apiRoutes.get('/postit/all', postitController.getAll);
-apiRoutes.delete('/postit/delete/:id', postitController.deleteById);
+
+// POST METHODS
+apiRoutes.post('/postit/new', postitController.newPostit);
+
+// PUT METHODS
 apiRoutes.put('/postit/update/:id', postitController.updateById);
 
+// DELETE METHODS
+apiRoutes.delete('/postit/delete/:id', postitController.deleteById);
 
 
 // Add all the different route goups to the main router
