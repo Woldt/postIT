@@ -6,6 +6,7 @@ export default class Posts extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -43,6 +44,7 @@ export default class Posts extends Component {
     })
   }
 
+
   handleSubmit(event){
     //Client side validation
 
@@ -75,6 +77,7 @@ export default class Posts extends Component {
             <input type="text" value={this.state.inputTitle} onChange={this.handleTitleChange} placeholder="Tittel" />
             <input type="text" value={this.state.inputCategory} onChange={this.handleCategoryChange} placeholder="Kategori" />
             <input type="text" value={this.state.inputDescription} onChange={this.handleDescriptionChange} placeholder="Beskrivelse" />
+
             <button  type="submit" onClick={this.handleSubmit}>Legg til</button>
           </form>
         </div>
