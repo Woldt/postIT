@@ -45,6 +45,7 @@ apiRoutes.get('/postit/search/:title', postitController.searchByTitel);
 apiRoutes.post('/postit/new', postitController.newPostit);
 apiRoutes.get('/postit/all', postitController.getAll);
 apiRoutes.delete('/postit/delete/:id', postitController.deleteById);
+apiRoutes.put('/postit/update/:id', postitController.updateById);
 
 
 
