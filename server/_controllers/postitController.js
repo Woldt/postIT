@@ -6,7 +6,7 @@ const PostIT = require("../_models/postit"); //import the exported Model
 Now whenever we want to do something with the PostIT-schema in the database
 we have to send a request to the spesified path in rouer.js
 example, to get all postit from database we have to query
-http://localhost:8080/api/postit/all 
+http://localhost:8080/api/postit/all
 */
 
 
@@ -75,4 +75,31 @@ exports.getAll = function(req, res, next) {
     return res.status(200).send(documents);
 
   });
+};
+
+exports.deleteById = function(req, res, next ){
+  // DELETE method, but query is sendt in URL so therefor we have to use req.params
+  let id = req.params.id; // Extract the id from the request
+
+  //validation
+  if(typeof(id) == 'undefined'){
+    return res.status(422).send({
+      error : "Did you remember to send the 12 byte _id ?"
+    });
+  }
+
+  PostIT.remove({ _id: id }, function(err, doc){
+    // If something went wrong:
+    if(err){
+      return res.status(422).send({
+        error: "Something went wrong: Error: " + err
+      })
+    }
+    // If removal was success
+    console.log("Doc: " + doc)
+    return res.status(200).send(doc);
+
+  });
+
+
 };
