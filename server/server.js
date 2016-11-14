@@ -26,6 +26,19 @@ app.set('port',config.port);
 app.use(bodyParser.urlencoded({ extended: false })); // extended choose between parsing the URL-encoded data with the "querystring" library(false) or the "qs" library(true)
 app.use(bodyParser.json()); // returns middleware that only parsers json
 
+// Enable CORS from client-side
+app.use(function(req, res, next) {
+  var allowedOrigins = ['http://localhost:3000'];  // Allow client server/domain to send requests
+  var origin = req.headers.origin;  // Extract origin (domain/adress) from request
+  if(allowedOrigins.indexOf(origin) > -1){  // Check if origin of request is in the list of allowed origins
+       res.setHeader('Access-Control-Allow-Origin', origin);  // set the header of the respons msg to send back!
+  }
+
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE'); // Tell the client what methods are allowed to use
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); // Tell the client what header tags are allowed
+  next(); // Call the next function in the callback-stack
+});
+
 
 // Set the server to listen to all the different routes declared in router.js
 app.use('/', router);
