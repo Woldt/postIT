@@ -21,7 +21,7 @@ exports.searchByTitel = function(req, res, next) {
       return res.status(422).send({error: "Something went wrong, Error: " + err});
     }
     // If nothing went wrong, check if found.
-    console.log("doc : " + doc);
+    console.log("doc : " + doc);  // RB4P
     if(doc == null){ // No documents matching found
       return res.status(200). send({message: "Could not find a postit with that title. Did you spell it right?"});
     }
@@ -80,6 +80,7 @@ exports.getAll = function(req, res, next) {
 exports.deleteById = function(req, res, next ){
   // DELETE method, but query is sendt in URL so therefor we have to use req.params
   let id = req.params.id; // Extract the id from the request
+  console.log("ID: " + id);  // RB4P
 
   //validation
   if(typeof(id) == 'undefined'){
@@ -96,10 +97,43 @@ exports.deleteById = function(req, res, next ){
       })
     }
     // If removal was success
-    console.log("Doc: " + doc)
+    console.log("Doc: " + doc) // RB4P
     return res.status(200).send(doc);
+  })
+};
 
-  });
+exports.updateById = function(req, res, next){
+  let id = req.params.id;
+
+  // Do some validation! -- if neccessary
+
+  // Try to find the document with the given ID:
+  PostIT.findOne({ _id : id }, function(err, doc){
+    // If something went wrong:
+    if(err){
+      return res.status(422).send({ error: "Something went wrong, when trying to find the document. Error: " + err });
+    }
+    // If finding document went "OK" - catbug:
+    console.log("DOC: " + doc) // RB4P
+    // Extract information from request body
+    let title = req.body.title,
+        category = req.body.category,
+        description = req.body.description;
+
+    // Update document:
+    doc.title = title;
+    doc.category = category;
+    doc.description = description;
+
+    console.log("updated DOC: " + doc);
+    // save / update the doc
+    doc.save();
+
+    // Send response to client
+    return res.status(200).send(doc + "\nSuccessfully updateById");
+
+
+  })
 
 
 };
