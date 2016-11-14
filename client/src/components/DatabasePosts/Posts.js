@@ -59,8 +59,6 @@ export default class Posts extends Component {
         category: this.state.inputCategory,
         description: this.state.inputDescription,
       })
-    }).then((response) => {
-      alert(response);
     })
   }
 
@@ -73,13 +71,10 @@ export default class Posts extends Component {
           <input type="text" value={this.state.resultSearch} onChange={this.handleChange} placeholder="søk i databasen" />
         </div>
         <div className="InputAdd">
-          <form>
             <input type="text" value={this.state.inputTitle} onChange={this.handleTitleChange} placeholder="Tittel" />
             <input type="text" value={this.state.inputCategory} onChange={this.handleCategoryChange} placeholder="Kategori" />
             <input type="text" value={this.state.inputDescription} onChange={this.handleDescriptionChange} placeholder="Beskrivelse" />
-
             <button  type="submit" onClick={this.handleSubmit}>Legg til</button>
-          </form>
         </div>
         <table>
           <tbody className="Table">
