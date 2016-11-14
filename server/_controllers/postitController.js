@@ -1,4 +1,4 @@
-"use strict";
+"use strict"; // use strict Javascript syntax. Doen't allow sloppy coding, etc
 
 const PostIT = require("../_models/postit"); //import the exported Model
 
