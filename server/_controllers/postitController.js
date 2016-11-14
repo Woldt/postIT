@@ -20,7 +20,7 @@ given document in JSON format.
 GET-method
 :title: is in the request URL as parameter
 */
-exports.searchByTitel = function(req, res, next) {
+exports.searchByTitle = function(req, res, next) {
   let title = req.params.title; // extract :title from URL
 
   // Try and findOne in the database that matches the parameter title
