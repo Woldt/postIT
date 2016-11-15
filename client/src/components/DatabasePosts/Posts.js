@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import './Posts.css';
 import { Button } from 'react-bootstrap';
+import { FormGroup } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 
 export default class Posts extends Component {
 
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+
     this.APIurl = 'http://localhost:8080/api';
     this.state = {
       resultSearch: "",
@@ -63,22 +67,55 @@ export default class Posts extends Component {
     })
   }
 
+  getAllPosts() {
+    fetch(this.APIurl + '/postit/all', {
+      method: 'GET',
+
+    })
+  }
+
+/*
+fetch('/users.json')
+  .then(function(response) {
+    return response.json()
+  }).then(function(json) {
+    console.log('parsed json', json)
+  }).catch(function(ex) {
+    console.log('parsing failed', ex)
+  })*/
 
   render() {
+     const allPosts = [
+       {id: 1, title: "test", category: "test1", description: "test2"},
+       {id: 2, title: "tull", category: "tull1", description: "tull2"},
+       {id: 3, title: "hest", category: "hest1", description: "hest2"}
+     ]
+
     return (
       <div>
-        <h1>PostIT</h1>
-        <div className="InputSearch">
-          <input type="text" value={this.state.resultSearch} onChange={this.handleChange} placeholder="søk i databasen" />
-        </div>
+        <h1 className="Title">PostIT</h1>
+
         <div className="InputAdd">
-            <input type="text" value={this.state.inputTitle} onChange={this.handleTitleChange} placeholder="Tittel" />
-            <input type="text" value={this.state.inputCategory} onChange={this.handleCategoryChange} placeholder="Kategori" />
-            <input type="text" value={this.state.inputDescription} onChange={this.handleDescriptionChange} placeholder="Beskrivelse" />
-            <Button bsStyle="primary" type="submit" onClick={this.handleSubmit}>Legg til</Button>
+          <h3>Legg til ny i databasen</h3>
+          <FormGroup id="title" type="text" label="Text" >
+            <FormControl type="text" value={this.state.inputTitle} onChange={this.handleTitleChange} placeholder="Tittel" />
+          </FormGroup>
+          <FormGroup id="category" type="text" label="Text" >
+            <FormControl type="text" value={this.state.inputCategory} onChange={this.handleCategoryChange} placeholder="Kategori" />
+          </FormGroup>
+          <FormGroup id="description" type="text" label="Text" >
+            <FormControl type="text" value={this.state.inputDescription} onChange={this.handleDescriptionChange} placeholder="Beskrivelse" />
+          </FormGroup>
+          <Button bsStyle="primary" type="submit" onClick={this.handleSubmit}>Legg til</Button>
         </div>
-        <table>
-          <tbody className="Table">
+
+        <div className="SearchAndDisplay">
+        <h3>Søk i databasen</h3>
+        <div className="InputSearch">
+          <FormControl type="text" value={this.state.resultSearch} onChange={this.handleChange} placeholder="søk i databasen"/>
+        </div>
+        <Table responsive>
+          <thead>
             <tr>
               <th className="TableHeader">ID</th>
               <th className="TableHeader">Title</th>
@@ -86,13 +123,21 @@ export default class Posts extends Component {
               <th className="TableHeader">Description</th>
               <th className="TableHeader">Delete</th>
             </tr>
-            <tr>
-
+          </thead>
+          <tbody>
+            {allPosts.map((post, i) =>
+            <tr key={post.id + i}>
+              <td>{post.id}</td>
+              <td>{post.title}</td>
+              <td>{post.category}</td>
+              <td>{post.description}</td>
+              <td><Button className="GlyphButton"><Glyphicon glyph="remove" /></Button></td>
             </tr>
+          )}
           </tbody>
-        </table>
+        </Table>
+        </div>
       </div>
     )
   }
-
 }

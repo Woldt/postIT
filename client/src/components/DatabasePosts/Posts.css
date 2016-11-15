@@ -1,3 +1,15 @@
-.Table {
-  width: 100%;
+.Title {
+  text-align: center;
+}
+
+.SearchAndDisplay {
+  margin-top: 50px;
+}
+
+.GlyphButton {
+  border: none;
+}
+
+.glyphicon {
+  color: red;
 }
