@@ -148,19 +148,19 @@ export default class Posts extends Component {
         </div>
 
         <div className="SearchAndDisplay">
-        <h3>Søk i databasen på Title</h3>
+        <h3>Søk i databasen</h3>
         <div className="InputSearch">
-          <FormControl type="text" value={this.state.resultSearch} onChange={this.handleSearchChange} placeholder="søk i databasen"/>
+          <FormControl type="text" value={this.state.resultSearch} onChange={this.handleSearchChange} placeholder="søk i databasen på tittel"/>
 
         </div>
         <Table responsive>
           <thead>
             <tr>
               <th className="TableHeader">ID</th>
-              <th className="TableHeader">Title</th>
-              <th className="TableHeader">Category</th>
-              <th className="TableHeader">Description</th>
-              <th className="TableHeader">Delete</th>
+              <th className="TableHeader">Tittel</th>
+              <th className="TableHeader">Kategori</th>
+              <th className="TableHeader">Beskrivelse</th>
+              <th className="TableHeader">Slett</th>
             </tr>
           </thead>
           <tbody>
