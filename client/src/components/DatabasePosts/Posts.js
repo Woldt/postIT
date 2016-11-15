@@ -16,6 +16,7 @@ export default class Posts extends Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.deleteAPost = this.deleteAPost.bind(this)
 
     this.APIurl = 'http://localhost:8080/api';
     this.state = {
@@ -78,7 +79,7 @@ export default class Posts extends Component {
 
   handleSubmit(event){
     //Client side validation
-
+    console.log(this.APIurl)
     //Sends request to backend server with fetch
     fetch(this.APIurl + '/postit/new', {
       method: 'POST',
@@ -94,11 +95,11 @@ export default class Posts extends Component {
         return response.status
       })
       .then((data) => {
-        if (data == 200) {
+        if (data === 200) {
           this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",}))
         }
       })
-      this.getAllPosts(); // update display of all posts, with the new 
+      this.getAllPosts(); // update display of all posts, with the new
   }
 
   getAllPosts() {
@@ -112,22 +113,14 @@ export default class Posts extends Component {
         })
   }
 
-/*
-fetch('/users.json')
-  .then(function(response) {
-    return response.json()
-  }).then(function(json) {
-    console.log('parsed json', json)
-  }).catch(function(ex) {
-    console.log('parsing failed', ex)
-  })*/
+  deleteAPost(event) {
+    fetch(this.APIurl + '/postit/delete/' + event.target.id, {
+        method: 'DELETE',
+    })
+    this.getAllPosts(); // update display of all posts, with the new
+  }
 
   render() {
-     const allPosts = [
-       {id: 1, title: "test", category: "test1", description: "test2"},
-       {id: 2, title: "tull", category: "tull1", description: "tull2"},
-       {id: 3, title: "hest", category: "hest1", description: "hest2"}
-     ]
 
     return (
       <div>
@@ -166,11 +159,11 @@ fetch('/users.json')
           <tbody>
             {this.state.posts.map((post, i) =>
             <tr key={post._id}>
-              <td>{post.id}</td>
+              <td>{post._id}</td>
               <td>{post.title}</td>
               <td>{post.category}</td>
               <td>{post.description}</td>
-              <td><Button className="GlyphButton"><Glyphicon glyph="remove" /></Button></td>
+              <td><Button className="GlyphButton" id={post._id} onClick={this.deleteAPost}><Glyphicon glyph="remove" /></Button></td>
             </tr>
           )}
           </tbody>
