@@ -79,27 +79,30 @@ export default class Posts extends Component {
 
   handleSubmit(event){
     //Client side validation
-    console.log(this.APIurl)
+    var newData ={
+      title: this.state.inputTitle,
+      category: this.state.inputCategory,
+      description: this.state.inputDescription,
+    }
     //Sends request to backend server with fetch
     fetch(this.APIurl + '/postit/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        title: this.state.inputTitle,
-        category: this.state.inputCategory,
-        description: this.state.inputDescription,
-      })
+      body: JSON.stringify(newData)
     }).then((response) => {
         return response.status
       })
       .then((data) => {
-        if (data === 200) {
+        if (data == 200) {
+          this.state.posts.push(newData);
           this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",}))
         }
       })
-      this.getAllPosts(); // update display of all posts, with the new
+      //this.getAllPosts(); // update display of all posts, with the new
+
+      //this.forceUpdate();
   }
 
   getAllPosts() {
@@ -114,10 +117,19 @@ export default class Posts extends Component {
   }
 
   deleteAPost(event) {
+    const index = this.state.posts.map((post, i) => post._id).indexOf(event.target.id);
     fetch(this.APIurl + '/postit/delete/' + event.target.id, {
         method: 'DELETE',
-    })
-    this.getAllPosts(); // update display of all posts, with the new
+    }).then((response) => {
+        return response.status
+      })
+      .then((data) => {
+        if (data == 200) {
+          this.state.posts.splice(index, 1);
+          this.forceUpdate();
+        }
+      })
+      console.log()//.indexOf(event.target.id))
   }
 
   render() {
