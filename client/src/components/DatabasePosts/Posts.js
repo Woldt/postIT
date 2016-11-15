@@ -10,7 +10,8 @@ export default class Posts extends Component {
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -22,13 +23,25 @@ export default class Posts extends Component {
       inputTitle: "",
       inputCategory: "",
       inputDescription: "",
+      posts: [],
     };
   }
 
-  handleChange(event) {
+  handleSearchChange(event) {
     this.setState({
       resultSearch: event.target.value
     });
+  }
+
+  handleSearch(){
+    console.log(this.state.resultSearch)
+    fetch(this.APIurl + '/postit/search/' + this.state.resultSearch, {
+        method: 'GET',
+    }).then((response) => {
+        return response.json()
+    }).then((data) => {
+        this.setState(Object.assign({}, this.state, { posts: data }))
+    })
   }
 
   handleTitleChange(event){
@@ -64,7 +77,14 @@ export default class Posts extends Component {
         category: this.state.inputCategory,
         description: this.state.inputDescription,
       })
-    })
+    }).then((response) => {
+        return response.status
+      })
+      .then((data) => {
+        if (data == 200) {
+          this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",}))
+        }
+      })
   }
 
   getAllPosts() {
@@ -112,7 +132,8 @@ fetch('/users.json')
         <div className="SearchAndDisplay">
         <h3>Søk i databasen</h3>
         <div className="InputSearch">
-          <FormControl type="text" value={this.state.resultSearch} onChange={this.handleChange} placeholder="søk i databasen"/>
+          <FormControl type="text" value={this.state.resultSearch} onChange={this.handleSearchChange} placeholder="søk i databasen"/>
+          <Button bsStyle="primary" onClick={this.handleSearch}>Søk</Button>
         </div>
         <Table responsive>
           <thead>
@@ -125,8 +146,8 @@ fetch('/users.json')
             </tr>
           </thead>
           <tbody>
-            {allPosts.map((post, i) =>
-            <tr key={post.id + i}>
+            {this.state.posts.map((post, i) =>
+            <tr key={post._id}>
               <td>{post.id}</td>
               <td>{post.title}</td>
               <td>{post.category}</td>
