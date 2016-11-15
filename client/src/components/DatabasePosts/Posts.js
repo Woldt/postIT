@@ -34,7 +34,6 @@ export default class Posts extends Component {
   }
 
   handleSearch(){
-    console.log(this.state.resultSearch)
     fetch(this.APIurl + '/postit/search/' + this.state.resultSearch, {
         method: 'GET',
     }).then((response) => {
