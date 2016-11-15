@@ -16,6 +16,7 @@ export default class Posts extends Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.deleteAPost = this.deleteAPost.bind(this)
 
     this.APIurl = 'http://localhost:8080/api';
     this.state = {
@@ -25,11 +26,24 @@ export default class Posts extends Component {
       inputDescription: "",
       posts: [],
     };
+
+    this.getAllPosts();  // when the page gets initialized, fetch and display all.
+
   }
 
   handleSearchChange(event) {
     this.setState({
       resultSearch: event.target.value
+    }, () => {
+      if(this.state.resultSearch === 'undefined' || this.state.resultSearch === "" || this.state.resultSearch === null || this.state.resultSearch === " "){
+        console.log(this.resultSearch + " should be empty");
+        this.getAllPosts();
+      }
+      else {
+        console.log(this.state.resultSearch + "should be defined");
+          this.handleSearch();
+      }
+
     });
   }
 
@@ -59,28 +73,30 @@ export default class Posts extends Component {
     this.setState({
       inputDescription: event.target.value
     })
+
   }
 
 
   handleSubmit(event){
     //Client side validation
-
+    var newData ={
+      title: this.state.inputTitle,
+      category: this.state.inputCategory,
+      description: this.state.inputDescription,
+    }
     //Sends request to backend server with fetch
     fetch(this.APIurl + '/postit/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        title: this.state.inputTitle,
-        category: this.state.inputCategory,
-        description: this.state.inputDescription,
-      })
+      body: JSON.stringify(newData)
     }).then((response) => {
         return response.status
       })
       .then((data) => {
         if (data == 200) {
+          this.getAllPosts(); // update display of all posts, with the new
           this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",}))
         }
       })
@@ -89,27 +105,30 @@ export default class Posts extends Component {
   getAllPosts() {
     fetch(this.APIurl + '/postit/all', {
       method: 'GET',
-
-    })
+    }).then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+          this.setState(Object.assign({}, this.state, {posts: data}))
+        })
   }
 
-/*
-fetch('/users.json')
-  .then(function(response) {
-    return response.json()
-  }).then(function(json) {
-    console.log('parsed json', json)
-  }).catch(function(ex) {
-    console.log('parsing failed', ex)
-  })*/
+  deleteAPost(event) {
+    const index = this.state.posts.map((post, i) => post._id).indexOf(event.target.id);
+    fetch(this.APIurl + '/postit/delete/' + event.target.id, {
+        method: 'DELETE',
+    }).then((response) => {
+        return response.status
+      })
+      .then((data) => {
+        if (data == 200) {
+          this.getAllPosts(); // update display of all posts, with the new
+        }
+      })
+  }
 
   render() {
-     const allPosts = [
-       {id: 1, title: "test", category: "test1", description: "test2"},
-       {id: 2, title: "tull", category: "tull1", description: "tull2"},
-       {id: 3, title: "hest", category: "hest1", description: "hest2"}
-     ]
-
+    let postITS = this.state.posts;
     return (
       <div>
         <h1 className="Title">PostIT</h1>
@@ -131,27 +150,27 @@ fetch('/users.json')
         <div className="SearchAndDisplay">
         <h3>Søk i databasen</h3>
         <div className="InputSearch">
-          <FormControl type="text" value={this.state.resultSearch} onChange={this.handleSearchChange} placeholder="søk i databasen"/>
-          <Button bsStyle="primary" onClick={this.handleSearch}>Søk</Button>
+          <FormControl type="text" value={this.state.resultSearch} onChange={this.handleSearchChange} placeholder="søk i databasen på tittel"/>
+
         </div>
         <Table responsive>
           <thead>
             <tr>
               <th className="TableHeader">ID</th>
-              <th className="TableHeader">Title</th>
-              <th className="TableHeader">Category</th>
-              <th className="TableHeader">Description</th>
-              <th className="TableHeader">Delete</th>
+              <th className="TableHeader">Tittel</th>
+              <th className="TableHeader">Kategori</th>
+              <th className="TableHeader">Beskrivelse</th>
+              <th className="TableHeader">Slett</th>
             </tr>
           </thead>
           <tbody>
-            {this.state.posts.map((post, i) =>
+            {postITS.map((post, i) =>
             <tr key={post._id}>
-              <td>{post.id}</td>
+              <td>{post._id}</td>
               <td>{post.title}</td>
               <td>{post.category}</td>
               <td>{post.description}</td>
-              <td><Button className="GlyphButton"><Glyphicon glyph="remove" /></Button></td>
+              <td><Button className="GlyphButton" id={post._id} onClick={this.deleteAPost}><Glyphicon glyph="remove" id={post._id}/></Button></td>
             </tr>
           )}
           </tbody>
