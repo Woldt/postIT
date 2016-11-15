@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Posts.css';
+import { Button } from 'react-bootstrap';
 
 export default class Posts extends Component {
 
@@ -74,7 +75,7 @@ export default class Posts extends Component {
             <input type="text" value={this.state.inputTitle} onChange={this.handleTitleChange} placeholder="Tittel" />
             <input type="text" value={this.state.inputCategory} onChange={this.handleCategoryChange} placeholder="Kategori" />
             <input type="text" value={this.state.inputDescription} onChange={this.handleDescriptionChange} placeholder="Beskrivelse" />
-            <button  type="submit" onClick={this.handleSubmit}>Legg til</button>
+            <Button bsStyle="primary" type="submit" onClick={this.handleSubmit}>Legg til</Button>
         </div>
         <table>
           <tbody className="Table">
