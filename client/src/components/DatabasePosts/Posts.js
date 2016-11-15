@@ -30,6 +30,8 @@ export default class Posts extends Component {
   handleSearchChange(event) {
     this.setState({
       resultSearch: event.target.value
+    }, () => {
+      this.handleSearch()
     });
   }
 
@@ -60,6 +62,7 @@ export default class Posts extends Component {
     this.setState({
       inputDescription: event.target.value
     })
+
   }
 
 
