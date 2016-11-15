@@ -96,13 +96,10 @@ export default class Posts extends Component {
       })
       .then((data) => {
         if (data == 200) {
-          this.state.posts.push(newData);
+          this.getAllPosts(); // update display of all posts, with the new
           this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",}))
         }
       })
-      //this.getAllPosts(); // update display of all posts, with the new
-
-      //this.forceUpdate();
   }
 
   getAllPosts() {
@@ -125,15 +122,13 @@ export default class Posts extends Component {
       })
       .then((data) => {
         if (data == 200) {
-          this.state.posts.splice(index, 1);
-          this.forceUpdate();
+          this.getAllPosts(); // update display of all posts, with the new
         }
       })
-      console.log()//.indexOf(event.target.id))
   }
 
   render() {
-
+    let postITS = this.state.posts;
     return (
       <div>
         <h1 className="Title">PostIT</h1>
@@ -153,7 +148,7 @@ export default class Posts extends Component {
         </div>
 
         <div className="SearchAndDisplay">
-        <h3>Søk i databasen</h3>
+        <h3>Søk i databasen på Title</h3>
         <div className="InputSearch">
           <FormControl type="text" value={this.state.resultSearch} onChange={this.handleSearchChange} placeholder="søk i databasen"/>
 
@@ -169,13 +164,13 @@ export default class Posts extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.posts.map((post, i) =>
+            {postITS.map((post, i) =>
             <tr key={post._id}>
               <td>{post._id}</td>
               <td>{post.title}</td>
               <td>{post.category}</td>
               <td>{post.description}</td>
-              <td><Button className="GlyphButton" id={post._id} onClick={this.deleteAPost}><Glyphicon glyph="remove" /></Button></td>
+              <td><Button className="GlyphButton" id={post._id} onClick={this.deleteAPost}><Glyphicon glyph="remove" id={post._id}/></Button></td>
             </tr>
           )}
           </tbody>
