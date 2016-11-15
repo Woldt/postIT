@@ -78,27 +78,28 @@ export default class Posts extends Component {
 
   handleSubmit(event){
     //Client side validation
-
+    var newData ={
+      title: this.state.inputTitle,
+      category: this.state.inputCategory,
+      description: this.state.inputDescription,
+    }
     //Sends request to backend server with fetch
     fetch(this.APIurl + '/postit/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        title: this.state.inputTitle,
-        category: this.state.inputCategory,
-        description: this.state.inputDescription,
-      })
+      body: JSON.stringify(newData)
     }).then((response) => {
         return response.status
       })
       .then((data) => {
         if (data == 200) {
+          this.state.posts.push(newData);
           this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",}))
         }
       })
-      this.getAllPosts(); // update display of all posts, with the new 
+      //this.getAllPosts(); // update display of all posts, with the new
   }
 
   getAllPosts() {
