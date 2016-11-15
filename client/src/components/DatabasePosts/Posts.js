@@ -25,13 +25,24 @@ export default class Posts extends Component {
       inputDescription: "",
       posts: [],
     };
+
+    this.getAllPosts();  // when the page gets initialized, fetch and display all.
+
   }
 
   handleSearchChange(event) {
     this.setState({
       resultSearch: event.target.value
     }, () => {
-      this.handleSearch()
+      if(this.state.resultSearch === 'undefined' || this.state.resultSearch === "" || this.state.resultSearch === null || this.state.resultSearch === " "){
+        console.log(this.resultSearch + " should be empty");
+        this.getAllPosts();
+      }
+      else {
+        console.log(this.state.resultSearch + "should be defined");
+          this.handleSearch();
+      }
+
     });
   }
 
@@ -87,13 +98,18 @@ export default class Posts extends Component {
           this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",}))
         }
       })
+      this.getAllPosts(); // update display of all posts, with the new 
   }
 
   getAllPosts() {
     fetch(this.APIurl + '/postit/all', {
       method: 'GET',
-
-    })
+    }).then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+          this.setState(Object.assign({}, this.state, {posts: data}))
+        })
   }
 
 /*
@@ -135,7 +151,7 @@ fetch('/users.json')
         <h3>Søk i databasen</h3>
         <div className="InputSearch">
           <FormControl type="text" value={this.state.resultSearch} onChange={this.handleSearchChange} placeholder="søk i databasen"/>
-          <Button bsStyle="primary" onClick={this.handleSearch}>Søk</Button>
+
         </div>
         <Table responsive>
           <thead>
