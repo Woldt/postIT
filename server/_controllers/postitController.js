@@ -23,8 +23,8 @@ GET-method
 exports.searchByTitle = function(req, res, next) {
   let title = req.params.title; // extract :title from URL
 
-  // Try and findOne in the database that matches the parameter title
-  PostIT.findOne({title: title}, function(err, doc){
+  // Try and find all in the database that matches the parameter title
+  PostIT.find({title: new RegExp(title,'i')}, function(err, doc){
     if(err){
       return res.status(422).send({error: "Something went wrong, Error: " + err});
     }
