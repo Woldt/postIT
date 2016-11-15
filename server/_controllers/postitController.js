@@ -1,4 +1,4 @@
-"use strict";
+"use strict"; // use strict Javascript syntax. Doen't allow sloppy coding, etc
 
 const PostIT = require("../_models/postit"); //import the exported Model
 
@@ -20,11 +20,11 @@ given document in JSON format.
 GET-method
 :title: is in the request URL as parameter
 */
-exports.searchByTitel = function(req, res, next) {
+exports.searchByTitle = function(req, res, next) {
   let title = req.params.title; // extract :title from URL
 
-  // Try and findOne in the database that matches the parameter title
-  PostIT.findOne({title: title}, function(err, doc){
+  // Try and find all in the database that matches the parameter title
+  PostIT.find({title: new RegExp(title,'i')}, function(err, doc){
     if(err){
       return res.status(422).send({error: "Something went wrong, Error: " + err});
     }
