@@ -28,7 +28,7 @@ app.use(bodyParser.json()); // returns middleware that only parsers json
 
 // Enable CORS from client-side
 app.use(function(req, res, next) {
-  var allowedOrigins = ['http://localhost:5000'];  // Allow client server/domain to send requests
+  var allowedOrigins = ['http://localhost:5000', 'http://localhost:3000','http://www.postit.idi.ntnu.no:5000'];  // Allow client server/domain to send requests
   var origin = req.headers.origin;  // Extract origin (domain/adress) from request
   if(allowedOrigins.indexOf(origin) > -1){  // Check if origin of request is in the list of allowed origins
        res.setHeader('Access-Control-Allow-Origin', origin);  // set the header of the respons msg to send back!
