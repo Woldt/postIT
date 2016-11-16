@@ -3,9 +3,6 @@ A repo to host "digital postit notes" application
 
 Devloped and written as a tutorial for the course "IT2810 - Web development" at NTNU Fall 2016.
 
-# proggeTips
-Inneholder forskjellige programmering tips og triks i forskjellige språk. Mye av kode vil være kommentert og forklarende slik at det blir lett å forstå og lære fra denne koden.
-
 ## Hvordan bruke:
 1. Klon (git clone) repoet til ønsket plass, via terminal
   * `git clone https://github.com/skaugvoll/postIT.git`.
