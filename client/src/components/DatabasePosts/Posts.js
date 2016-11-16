@@ -10,6 +10,8 @@ export default class Posts extends Component {
 
   constructor(props) {
     super(props);
+
+    // Binds the different functions so they are able to use this
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,19 +20,20 @@ export default class Posts extends Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.deleteAPost = this.deleteAPost.bind(this)
 
-    this.APIurl = 'http://localhost:8080/api';
+    this.APIurl = 'http://localhost:8080/api'; // The url to the api, where we want to do the POST and GET requests.
     this.state = {
-      resultSearch: "",
-      inputTitle: "",
-      inputCategory: "",
-      inputDescription: "",
-      posts: [],
+      resultSearch: "", // Saves the text written in search input field.
+      inputTitle: "", // Saves the text written in title input field.
+      inputCategory: "", // Saves the text written in category input field.
+      inputDescription: "", // Saves the text written in description input field.
+      posts: [], // A list containing all posts
     };
 
-    this.getAllPosts();  // when the page gets initialized, fetch and display all.
+    this.getAllPosts();  // When the page gets initialized, fetch and display all.
 
   }
 
+  // Handles the search, if the resultSearch is empty or undefined all posts are colleced, else handleSearch() is called.
   handleSearchChange(event) {
     this.setState({
       resultSearch: event.target.value
@@ -47,6 +50,7 @@ export default class Posts extends Component {
     });
   }
 
+  // This function gets all posts that matched the search from the database. Uses the RESTapi to collect the relevant search.
   handleSearch(){
     fetch(this.APIurl + '/postit/search/' + this.state.resultSearch, {
         method: 'GET',
@@ -57,26 +61,28 @@ export default class Posts extends Component {
     })
   }
 
+  // Saves the value written in the title input to a variable.
   handleTitleChange(event){
     this.setState({
       inputTitle: event.target.value
     })
   }
 
+  // Saves the value written in the category input to a variable.
   handleCategoryChange(event){
     this.setState({
       inputCategory: event.target.value
     })
   }
 
+  // Saves the value written in the description input to a variable.
   handleDescriptionChange(event){
     this.setState({
       inputDescription: event.target.value
     })
-
   }
 
-
+  // This function posts the values in the three input fields(title, category & description) into the database, using a POST request.
   handleSubmit(event){
     //Client side validation
     var newData ={
@@ -96,12 +102,13 @@ export default class Posts extends Component {
       })
       .then((data) => {
         if (data == 200) {
-          this.getAllPosts(); // update display of all posts, with the new
-          this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",}))
+          this.getAllPosts(); // Update display of all posts, with the new
+          this.setState(Object.assign({}, this.state, {inputTitle: "", inputCategory: "", inputDescription: "",})) // Sets the state of input fields to be empty, so you can write a new post.
         }
       })
   }
 
+  // Collects all posts from the database, uses GET and fetches using the RESTapi.
   getAllPosts() {
     fetch(this.APIurl + '/postit/all', {
       method: 'GET',
@@ -109,12 +116,13 @@ export default class Posts extends Component {
         return response.json()
       })
       .then((data) => {
-          this.setState(Object.assign({}, this.state, {posts: data}))
+          this.setState(Object.assign({}, this.state, {posts: data})) // Sets the state of the list post to be the collected data.
         })
   }
 
+  // Removes a spesific post from the database.
   deleteAPost(event) {
-    const index = this.state.posts.map((post, i) => post._id).indexOf(event.target.id);
+    const index = this.state.posts.map((post, i) => post._id).indexOf(event.target.id); // Finds the index of the element in posts that the user wants to delete.
     fetch(this.APIurl + '/postit/delete/' + event.target.id, {
         method: 'DELETE',
     }).then((response) => {
@@ -122,7 +130,7 @@ export default class Posts extends Component {
       })
       .then((data) => {
         if (data == 200) {
-          this.getAllPosts(); // update display of all posts, with the new
+          this.getAllPosts(); // Update display of all posts, the deleted item is removed.
         }
       })
   }
