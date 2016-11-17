@@ -11,11 +11,11 @@ export default class Navitagion extends Component {
        <nav className="navbar navbar-default">
         <div className="container-fluid">
           <ul className="nav navbar-nav">
-            <li className="active"><a href="/">Postit</a></li>
+            <li className="active"><Link to="/">Postit</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="github">Github</a></li>
-            <li><a href="tutorial">Tutorial</a></li>
+            <li><Link to="github">Github</Link></li>
+            <li><Link to="tutorial">Tutorial</Link></li>
           </ul>
         </div>
        </nav>
