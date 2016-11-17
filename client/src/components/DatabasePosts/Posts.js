@@ -5,6 +5,7 @@ import { FormGroup } from 'react-bootstrap';
 import { FormControl } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import { Glyphicon } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 export default class Posts extends Component {
 
@@ -135,12 +136,13 @@ export default class Posts extends Component {
       })
   }
 
+
+
   render() {
     let postITS = this.state.posts;
+
     return (
       <div>
-        <h1 className="Title">PostIT</h1>
-
         <div className="InputAdd">
           <h3>Legg til ny i databasen</h3>
           <FormGroup id="title" type="text" label="Text" >
@@ -164,7 +166,7 @@ export default class Posts extends Component {
         <Table responsive>
           <thead>
             <tr>
-              <th className="TableHeader">ID</th>
+              <th className="TableHeader">Id</th>
               <th className="TableHeader">Tittel</th>
               <th className="TableHeader">Kategori</th>
               <th className="TableHeader">Beskrivelse</th>
