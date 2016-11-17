@@ -71,7 +71,7 @@ exports.newPostit = function(req, res, next) {
   // Try and save to database
   postit.save(function(err, newPostit){
     if(err) {
-      return res.status(400).send({ message: 'something went wrong. Could not add new postit: ' + error})
+      return res.status(400).send({ message: 'something went wrong. Could not add new postit: ' + err})
     }
     // If no error, and saving a new postit was success. send this response
     return res.status(200).send(newPostit + "\nSuccessfully saved");

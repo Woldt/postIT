@@ -21,7 +21,7 @@ export default class Posts extends Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.deleteAPost = this.deleteAPost.bind(this)
 
-    this.APIurl = 'http://localhost:8080/api'; // The url to the api, where we want to do the POST and GET requests.
+    this.APIurl = 'http://it2810-02.idi.ntnu.no:8080/api'; // The url to the api, where we want to do the POST and GET requests.
     this.state = {
       resultSearch: "", // Saves the text written in search input field.
       inputTitle: "", // Saves the text written in title input field.
