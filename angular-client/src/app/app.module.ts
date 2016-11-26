@@ -11,6 +11,7 @@ import { Navbar } from './navbar/navbar.component';
 import { Github } from './github/github.component';
 import { Postit } from './postIT/postit.component';
 import { NewPostit } from './newPostit/newPostit.component';
+import { SearchPostit } from './searchPostit/searchPostit.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NewPostit } from './newPostit/newPostit.component';
     Github,
     Postit,
     NewPostit,
+    SearchPostit
   ],
   imports: [
     BrowserModule,

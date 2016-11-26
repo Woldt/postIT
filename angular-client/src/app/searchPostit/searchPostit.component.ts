@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./searchPostit.component.css']
 })
 
-export class searchPostit {
+export class SearchPostit {
 
 }

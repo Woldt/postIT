@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NewPostit } from '../newPostit/newPostit.component';
+
 
 @Component({
   selector: 'postit',
