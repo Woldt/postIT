@@ -1,0 +1,14 @@
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!-- <img [routerLink]="['/github']" src="./postit.ico" alt="Insert Logo here" height="15" width="15" /> -->
+      <a class="navbar-brand" [routerLink]="['']">{{title}}</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <!-- <li class="active"><a href="#">Home</a></li> -->
+      <li><a [routerLink]="['/github']">Github</a></li>
+      <li><a [routerLink]="['/tutorial']">Tutorial</a></li>
+    </ul>
+  </div>
+</nav>
