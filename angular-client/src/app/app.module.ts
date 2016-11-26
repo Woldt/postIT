@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { Navbar } from './navbar/navbar.component';
 import { Github } from './github/github.component';
 import { Postit } from './postIT/postit.component';
+import { NewPostit } from './newPostit/newPostit.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { Postit } from './postIT/postit.component';
     Navbar,
     Github,
     Postit,
+    NewPostit,
   ],
   imports: [
     BrowserModule,
