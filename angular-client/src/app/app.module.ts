@@ -9,9 +9,11 @@ import { Routing }        from './app.router';
 import { AppComponent } from './app.component';
 import { Navbar } from './navbar/navbar.component';
 import { Github } from './github/github.component';
+import { Tutorial } from './tutorial/tutorial.component';
 import { Postit } from './postIT/postit.component';
 import { NewPostit } from './newPostit/newPostit.component';
 import { SearchPostit } from './searchPostit/searchPostit.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { SearchPostit } from './searchPostit/searchPostit.component';
     Github,
     Postit,
     NewPostit,
-    SearchPostit
+    SearchPostit,
+    Tutorial,
   ],
   imports: [
     BrowserModule,
