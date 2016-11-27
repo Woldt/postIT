@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class Tutorial {
-  title: String = "Tutorial"
+  title: String = "Tutorial";
+
+
 }
