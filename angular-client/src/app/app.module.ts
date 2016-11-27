@@ -1,3 +1,9 @@
+/*
+This is the module, that puts together our application, and makes
+everything available to app.component.ts, and then serves the app.component.ts
+to the main.ts, which in turn is used to place the application, into the
+index.html file.
+*/
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
