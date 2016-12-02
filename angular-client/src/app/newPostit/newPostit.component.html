@@ -1,14 +1,14 @@
 <div className="InputAdd">
   <h3>Legg til ny i databasen</h3>
   <div class="form-group" id="title" type="text" label="Text" >
-    <input class="form-control" type="text" placeholder="Tittel" />
+    <input #Title class="form-control" type="text" placeholder="Tittel" />
   </div>
   <div class="form-group" id="category" type="text" label="Text" >
-    <input class="form-control" type="text" placeholder="Kategori" />
+    <input #Category class="form-control" type="text" placeholder="Kategori" />
   </div>
   <div class="form-group" id="description" type="text" label="Text" >
-    <input class="form-control" type="text" placeholder="Beskrivelse" />
+    <input #Description class="form-control" type="text" placeholder="Beskrivelse" />
   </div>
 
-  <Button class="btn btn-primary" type="submit">Legg til</Button>
+  <Button class="btn btn-primary" type="submit" (click)="onSubmit(Title.value, Category.value, Description.value)">Legg til</Button>
 </div>

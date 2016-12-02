@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Response, Headers } from '@angular/http'; // this is needed to send, and listen to a HTTP request
+import { Http, Response, Headers, RequestOptions } from '@angular/http'; // this is needed to send, and listen to a HTTP request
 import { Observable } from 'rxjs/Observable'; // this is needed to make the service, return a Observable
 import 'rxjs/add/operator/map';
 
@@ -28,23 +28,21 @@ export class PostitService {
   }
 
   // Create a method to add new postit!
-  addNewPostit(postit: PostitModel) {
+  addNewPostit(postit: PostitModel): Observable<any> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    let options = new RequestOptions({ headers: headers });
 
     let title: String = postit.title;
     let category: Array<String> = postit.category;
     let description: String = postit.description;
 
-    return this._http.post(this.apiUrl + "/postit/new",
-      {
-        title: title,
-        category: category,
-        description: description
-      },
-      {
-        headers
-       });
+    console.log(postit);
+    return this._http.post(this.apiUrl + "/postit/new",{postit}, { headers })
+      .map((res: Response) => {
+          return JSON.stringify(res);
+      });
+
   }
 
 
