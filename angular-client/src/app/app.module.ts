@@ -20,6 +20,8 @@ import { Postit } from './postIT/postit.component';
 import { NewPostit } from './newPostit/newPostit.component';
 import { SearchPostit } from './searchPostit/searchPostit.component';
 
+import { PostitService } from './_services/postit.service';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { SearchPostit } from './searchPostit/searchPostit.component';
     Routing
 
   ],
-  providers: [],
+  providers: [
+    PostitService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
