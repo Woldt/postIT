@@ -23,12 +23,28 @@ export class PostitService {
     return this._http.get(this.apiUrl + "/postit/all",  { headers })
       .map((response: Response) => {
         let answer = JSON.parse(JSON.stringify(response.json())); // there has to be another way to do this, I don't understand!
-
-
-
-
         return answer;
     });
+  }
+
+  // Create a method to add new postit!
+  addNewPostit(postit: PostitModel) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let title: String = postit.title;
+    let category: Array<String> = postit.category;
+    let description: String = postit.description;
+
+    return this._http.post(this.apiUrl + "/postit/new",
+      {
+        title: title,
+        category: category,
+        description: description
+      },
+      {
+        headers
+       });
   }
 
 
