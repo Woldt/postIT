@@ -19,6 +19,7 @@ import { Tutorial } from './tutorial/tutorial.component';
 import { Postit } from './postIT/postit.component';
 import { NewPostit } from './newPostit/newPostit.component';
 import { SearchPostit } from './searchPostit/searchPostit.component';
+import { DisplayPostit } from './display/postit.display.component';
 
 import { PostitService } from './_services/postit.service';
 
@@ -32,13 +33,13 @@ import { PostitService } from './_services/postit.service';
     NewPostit,
     SearchPostit,
     Tutorial,
+    DisplayPostit,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    Routing
-
+    Routing,
   ],
   providers: [
     PostitService,
