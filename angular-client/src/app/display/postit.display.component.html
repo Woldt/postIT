@@ -1,3 +1,4 @@
+<!--
 <div>
   <ul>
     <li *ngFor="let postit of postits">
@@ -9,3 +10,22 @@
     </li>
   </ul>
 </div>
+-->
+<Table class="table-responsive table">
+  <thead>
+    <tr>
+      <th className="TableHeader">Tittel</th>
+      <th className="TableHeader">Kategori</th>
+      <th className="TableHeader">Beskrivelse</th>
+      <th className="TableHeader">Slett</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let postit of postits">
+    <tr>
+      <td>{{postit.title}}</td>
+      <td>{{postit.category}}</td>
+      <td>{{postit.description}}</td>
+      <td><Button className="GlyphButton"></Button></td>
+    </tr>
+  </tbody>
+</Table>
