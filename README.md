@@ -20,5 +20,5 @@ Devloped and written as a tutorial for the course "IT2810 - Web development" at 
  
 ## Tutorial:
 En tutorial til hvordan man lager en backend server med RESTapi finner du her, tutorialen bruker postIT som eksmepel:
-^^insertURL^^
+https://drive.google.com/file/d/0Bwq3xHrSqA2yRVRrTk5mUnFGZ3M/view
 
